@@ -3,3 +3,4 @@ Template.postItem.helpers
     anchor = document.createElement 'a'
     anchor.href = this.url
     anchor.hostname
+  ownPost: -> @userId == Meteor.userId()
