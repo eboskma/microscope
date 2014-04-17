@@ -24,17 +24,9 @@ Meteor.methods
       throw new Meteor.Error 302, 'This link has already been posted.', duplicate_post._id
     
     post = _.extend _.pick(post_attributes, 'url', 'message'),
-      title: post_attributes.title + (if @isSimulation then '*')
+      title: post_attributes.title + (if @isSimulation then '*' else '')
       userId: user._id
       author: user.username
       submitted: new Date().getTime()
     
-    if !@isSimulation
-      Future = Npm.require 'fibers/future'
-      future = new Future()
-      Meteor.setTimeout ->
-        future.return()
-      , 5000
-      future.wait()
-      
     post_id = Posts.insert post

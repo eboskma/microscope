@@ -15,7 +15,7 @@ Template.postEdit.events
     Posts.update current_post_id, { $set: post_properties }, 
       (error) ->
         if error?
-          alert error.reason
+          Errors.throw error.reason
         else
           Router.go 'postPage', _id: current_post_id 
   
