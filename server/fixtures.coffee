@@ -18,6 +18,7 @@ if Posts.find().count() == 0
     author: 'Sacha Greif'
     url: 'http://sachagreif.com/introducing-telescope/'
     submitted: now - 7 * 3600 * 1000
+    comments_count: 2
   
   Comments.insert
     post_id: post_id
@@ -39,6 +40,7 @@ if Posts.find().count() == 0
     author: 'Tom Coleman'
     url: 'http://meteor.com'
     submitted: now - 10 * 3600 * 1000
+    comments_count: 0
   
   Posts.insert
     title: 'The Meteor Book'
@@ -46,4 +48,4 @@ if Posts.find().count() == 0
     author: 'Tom Coleman'
     url: 'http://themeteorbook.com'
     submitted: now - 12 * 3600 * 1000
-    
+    comments_count: 0
