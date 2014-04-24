@@ -49,3 +49,14 @@ if Posts.find().count() == 0
     url: 'http://themeteorbook.com'
     submitted: now - 12 * 3600 * 1000
     commentsCount: 0
+  
+
+  for num in [1..10]
+    do (num) ->
+      Posts.insert
+        title: "Test post #{num}"
+        author: sacha.profile.name
+        userId: sacha._id
+        url: "https://www.google.com/?q=test-#{num}"
+        submitted: now - num * 3600 * 1000
+        commentsCount: 0
