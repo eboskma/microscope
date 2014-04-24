@@ -5,7 +5,8 @@
     "spin": {},
     "accounts-ui-bootstrap-3": {},
     "errors": {
-      "git": "https://github.com/eboskma/meteor-errors"
+      "git": "https://github.com/eboskma/meteor-errors",
+      "branch": "master"
     }
   }
 }

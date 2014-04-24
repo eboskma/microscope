@@ -1,1 +1,1 @@
-@ownsDocument = (user_id, doc) -> doc && doc.userId == user_id
+@ownsDocument = (userId, doc) -> doc && doc.userId == userId

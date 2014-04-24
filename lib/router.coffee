@@ -33,4 +33,4 @@ requireLogin = (pause) ->
 
 Router.onBeforeAction requireLogin, 
   only: 'postSubmit'
-Router.onBeforeAction -> Errors.clear_seen()
+Router.onBeforeAction -> Errors.clearSeen()

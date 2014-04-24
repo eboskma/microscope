@@ -1,27 +1,27 @@
 @Comments = new Meteor.Collection 'comments'
 
 Meteor.methods
-  comment: (comment_attributes) ->
+  comment: (commentAttributes) ->
     user = Meteor.user()
-    post = Posts.findOne comment_attributes.post_id
+    post = Posts.findOne commentAttributes.postId
     
     if !user
       throw new Meteor.error 401, 'You need to log in to make comments.'
     
-    if !comment_attributes.body
+    if !commentAttributes.body
       throw new Meteor.error 422, 'Please write something.'
     
-    if !comment_attributes.post_id
+    if !commentAttributes.postId
       throw new Meteor.error 422, 'You must comment on a post.'
     
-    comment = _.extend _.pick(comment_attributes, 'post_id', 'body'),
-      user_id: user._id
+    comment = _.extend _.pick(commentAttributes, 'postId', 'body'),
+      userId: user._id
       author: user.username
       submitted: new Date().getTime()
     
-    Posts.update comment.post_id,
+    Posts.update comment.postId,
       $inc:
-        comments_count: 1
+        commentsCount: 1
     
     Comments.insert comment
     

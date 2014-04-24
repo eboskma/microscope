@@ -35,7 +35,7 @@
       "errors": {
         "git": "https://github.com/eboskma/meteor-errors",
         "branch": "master",
-        "commit": "238414b9aa560d6f1734a6ffd4afd4ebba55463c"
+        "commit": "c46e3d6ff2958777d9bfae06023ac645c8b30704"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
