@@ -29,5 +29,25 @@ Meteor.methods
       author: user.username
       submitted: new Date().getTime()
       commentsCount: 0
+      upvoters: []
+      votes: 0
     
     postId = Posts.insert post
+  
+  upvote: (postId) ->
+    user = Meteor.user()
+    if !user
+      throw new Meteor.Error 401, 'You need to sign in to upvote.'
+    
+    post = Posts.findOne postId
+    if !post
+      throw new Meteor.Error 422, 'Post not found.'
+    
+    if _.include post.upvoters, user._id
+      throw new Meteor.Error 422, 'You already upvoted this post.'
+    
+    Posts.update post._id,
+      $addToSet:
+        upvoters: user._id
+      $inc:
+        votes: 1
