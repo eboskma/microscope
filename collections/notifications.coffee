@@ -3,7 +3,7 @@
 @Notifications.allow
   update: ownsDocument
 
-createCommentNotification = (comment) ->
+@createCommentNotification = (comment) ->
   post = Posts.findOne comment.postId
   
   if comment.userId != post.userId
