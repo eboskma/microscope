@@ -9,22 +9,22 @@ Router.configure
 @PostsListController = RouteController.extend
   template: 'postsList'
   increment: 5
-  postsLimit: ->
+  limit: ->
     parseInt(@params.postsLimit) || @increment
   findOptions: ->
-    limit: @postsLimit()
+    limit: @limit()
     sort: [['submitted', 'desc']]
   waitOn: ->
     Meteor.subscribe 'posts', @findOptions()
+  posts: ->
+    Posts.find {}, @findOptions()
   data: ->
-    posts:
-      Posts.find {}, @findOptions()
+    hasMore = @posts().count() == @limit()
+    posts: @posts()
+    nextPath: if hasMore then @route.path({ postsLimit: @limit() + @increment }) else null
+    
 
 Router.map ->
-  @route 'postsList', 
-    path: '/:postsLimit?'
-    controller: PostsListController
-  
   @route 'postPage',
     path: '/posts/:_id'
     waitOn: -> Meteor.subscribe 'comments', @params._id
@@ -36,6 +36,11 @@ Router.map ->
   @route 'postEdit',
     path: '/posts/:_id/edit'
     data: -> Posts.findOne(@params._id)
+  
+  @route 'postsList', 
+    path: '/:postsLimit?'
+    controller: PostsListController
+  
 
 requireLogin = (pause) ->
   if !Meteor.user()
