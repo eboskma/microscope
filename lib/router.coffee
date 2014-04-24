@@ -32,6 +32,7 @@ Router.map ->
   
   @route 'postSubmit', 
     path: '/submit'
+    disableProgress: true
   
   @route 'postEdit',
     path: '/posts/:_id/edit'
