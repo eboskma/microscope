@@ -3,13 +3,23 @@ Router.configure
   loadingTemplate: 'loading'
   waitOn: ->
     [
-      Meteor.subscribe 'posts'
       Meteor.subscribe 'notifications'
     ]
   
 Router.map ->
   @route 'postsList', 
-    path: '/'
+    path: '/:postsLimit?'
+    waitOn: ->
+      limit = parseInt(@params.postsLimit) || 5
+      
+      Meteor.subscribe 'posts', [['submitted', 'desc']], limit
+    data: ->
+      limit = parseInt(@params.postsLimit) || 5
+      return (
+        posts: Posts.find {}, 
+          sort: [['submitted', 'desc']]
+          limit: limit
+      )
   
   @route 'postPage',
     path: '/posts/:_id'

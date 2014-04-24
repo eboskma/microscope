@@ -1,4 +1,7 @@
-Meteor.publish 'posts', -> Posts.find()
+Meteor.publish 'posts', (sort, limit) -> 
+  Posts.find {},
+    sort: sort
+    limit: limit
   
 Meteor.publish 'comments', (postId) -> 
   Comments.find
