@@ -4,7 +4,7 @@ Router.configure
   waitOn: ->
     [
       Meteor.subscribe 'posts'
-      Meteor.subscribe 'comments'
+      Meteor.subscribe 'notifications'
     ]
   
 Router.map ->
