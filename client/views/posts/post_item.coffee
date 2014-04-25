@@ -23,7 +23,9 @@ Template.postItem.helpers
     attributes = 
       class: 'post'
     
-    if post.position?
+    if typeof post.position == 'undefined'
+      attributes.class = 'post invisible'
+    else
       delta = post.position - newPosition
       attributes.style = "top: #{delta}px;"
       if delta == 0
@@ -42,18 +44,3 @@ Template.postItem.events
   'click .upvotable': (e) ->
     e.preventDefault()
     Meteor.call 'upvote', @_id
-
-# Template.postItem.rendered = ->
-#   rank = @data._rank
-#   $this = $(@firstNode)
-#   postHeight = 80
-#   newPosition = rank * postHeight
-#   
-#   if @currentPosition?
-#     previousPosition = @currentPosition
-#     delta = previousPosition - newPosition
-#     $this.css 'top', "#{delta}px"
-#   
-#   Meteor.defer =>
-#     @currentPosition = newPosition
-#     $this.css 'top', '0px'
