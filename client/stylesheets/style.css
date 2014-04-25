@@ -20,10 +20,10 @@ body {
 }
 .post {
   -webkit-transition: all 300ms 0ms;
-  -webkit-transition-delay: ease-in;
-  -moz-transition: all 300ms 0ms ease-in;
-  -o-transition: all 300ms 0ms ease-in;
-  transition: all 300ms 0ms ease-in;
+  -webkit-transition-delay: ease-in-out;
+  -moz-transition: all 300ms 0ms ease-in-out;
+  -o-transition: all 300ms 0ms ease-in-out;
+  transition: all 300ms 0ms ease-in-out;
   position: relative;
   opacity: 1;
 }
