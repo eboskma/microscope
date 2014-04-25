@@ -13,7 +13,7 @@ Router.configure
     parseInt(@params.postsLimit) || @increment
   findOptions: ->
     limit: @limit()
-    sort: [['submitted', 'desc']]
+    sort: @sort
   waitOn: ->
     Meteor.subscribe 'posts', @findOptions()
   posts: ->
@@ -21,9 +21,21 @@ Router.configure
   data: ->
     hasMore = @posts().count() == @limit()
     posts: @posts()
-    nextPath: if hasMore then @route.path({ postsLimit: @limit() + @increment }) else null
+    # nextPath: if hasMore then @route.path({ postsLimit: @limit() + @increment }) else null
+    nextPath: @nextPath()
     
+@NewPostsListController = PostsListController.extend
+  sort: [['submitted', 'desc'], ['_id', 'desc']]
+  nextPath: ->
+    Router.routes.newPosts.path
+      postsLimit: @limit() + @increment
 
+@BestPostsListController = PostsListController.extend
+  sort: [['votes', 'desc'],['submitted', 'desc'], ['_id', 'desc']]
+  nextPath: ->
+    Router.routes.bestPosts.path
+      postsLimit: @limit() + @increment
+    
 Router.map ->
   @route 'postPage',
     path: '/posts/:_id'
@@ -48,10 +60,17 @@ Router.map ->
       ]
     data: -> Posts.findOne(@params._id)
   
-  @route 'postsList', 
-    path: '/:postsLimit?'
-    controller: PostsListController
+  @route 'newPosts', 
+    path: '/new/:postsLimit?'
+    controller: NewPostsListController
   
+  @route 'bestPosts', 
+    path: '/best/:postsLimit?'
+    controller: BestPostsListController
+  
+  @route 'home', 
+    path: '/:postsLimit?'
+    controller: NewPostsListController
 
 requireLogin = (pause) ->
   if !Meteor.user()
